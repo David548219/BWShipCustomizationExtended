@@ -26,6 +26,8 @@ Customization tag consists of operators, some operators require a value to be sp
 
 *Flag texture*. Operator char is **F**, operator requires a flag texture value to be specified. Example: Ff. Changes flag texture.
 
+*Sail texture*. Operator char is **D**, operator requires a flag texture value to be specified. Example: Dp. Changes sail texture.
+
 **Values**
 
 *Colors*
@@ -34,7 +36,7 @@ Black (*b*), Blue (*l*), Cyan (*c*), Gray (*a*), Green (*g*), Magenta (*m*), Red
 
 *Flag textures*
 
-Frog (*f*), Pirate frog (*p*), USSR flag (*u*).
+Frog (*f*), Pirate frog (*p*), USSR flag (*s*), Great tortuga (*g*), Unity of comrades (*u*).
 
 **Mod limitations**
 
