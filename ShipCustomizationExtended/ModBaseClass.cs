@@ -177,6 +177,17 @@ namespace ShipCustomizationExtended
 
                     return true;
                 }
+
+                if (op == 'D')
+                {
+                    // Sail texture
+                    if (ProcessFlagTexture(val, out Texture2D sailTexture))
+                    {
+                        ApplySailTexture(shipTransform, sailTexture);
+                    }
+
+                    return true;
+                }
             }
             catch (Exception e)
             {
@@ -257,8 +268,14 @@ namespace ShipCustomizationExtended
                 case 'p':
                     texture = LoadTexture($"{flagsFolder}\\PirateFrog.png", flagWidth, flagHeight);
                     return true;
-                case 'u':
+                case 's':
                     texture = LoadTexture($"{flagsFolder}\\Ussr.png", flagWidth, flagHeight);
+                    return true;
+                case 'g':
+                    texture = LoadTexture($"{flagsFolder}\\GreatTortuga.png", flagWidth, flagHeight);
+                    return true;
+                case 'u':
+                    texture = LoadTexture($"{flagsFolder}\\UnityOfComrades.png", flagWidth, flagHeight);
                     return true;
                 default:
                 {
@@ -403,8 +420,39 @@ namespace ShipCustomizationExtended
                     material.mainTexture = flagTexture;
                 }
             }
-
+            
             Log($"Flag retextured for {GetShipNameFromTransform(shipTransform)}");
+        }
+
+        /// <summary>
+        /// Applies custom sail texture to the ship
+        /// </summary>
+        /// <param name="shipTransform">Affected ship transform</param>
+        /// <param name="sailTexture">New sail texture</param>
+        private void ApplySailTexture(Transform shipTransform, Texture2D sailTexture)
+        {
+            LogDebug($"Applying sail texture to {shipTransform.name}");
+            
+            Renderer[] renderers = shipTransform.GetComponentsInChildren<Renderer>(true);
+            foreach (Renderer renderer in renderers)
+            {
+                // Sail related renderers contain "sail" in the name
+                LogDebug($"Renderer name: {renderer.name}");
+                if (!renderer.name.ToLower().Contains("sail"))
+                {
+                    LogDebug("Skipping renderer");
+                    continue;
+                }
+
+                LogDebug($"Materials in the renderer: {renderer.materials.Length}");
+                foreach (Material material in renderer.materials)
+                {
+                    LogDebug($"Material name: {material.name}");
+                    material.mainTexture = sailTexture;
+                }
+            }
+
+            Log($"Sails retextured for {GetShipNameFromTransform(shipTransform)}");
         }
     }
 }
